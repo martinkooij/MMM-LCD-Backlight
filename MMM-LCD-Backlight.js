@@ -6,7 +6,7 @@
  * MIT Licensed.
  */
  
- Module.register('MMM-LCD-Backlights', {
+ Module.register('MMM-LCD-Backlight', {
 	defaults: {
         nStrings: 2,  		// There are two strings
 		nPixels: [30,30],		// Each string has 30 leds
@@ -23,7 +23,7 @@
    // there is no rendering wait for modules to give commands
    
    notificationReceived: function(notification, payload, sender) {
-	   if (notification === 'SET_LCD_BACKLIGHTS') {
+	   if (notification === 'SET_LCD_BACKLIGHT') {
 	   payload.sender = sender.name ;
 //	   console.log("AND THIS IS RECEIVED:", this.name, payload);	 
 	   this.sendSocketNotification('SET_LIGHTS',payload) ;
