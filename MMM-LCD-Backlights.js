@@ -17,7 +17,7 @@
 	
 	start: function() {
 		Log.info('Starting module: ' + this.name);
-		this.sendSocketNotification('CONFIG', this.config) ;
+		this.sendSocketNotification('CONFIG', this.config) ; // send module's config to the node_handler, who is doing the job. 
 	},
 		
    // there is no rendering wait for modules to give commands
@@ -25,7 +25,7 @@
    notificationReceived: function(notification, payload, sender) {
 	   if (notification === 'SET_LCD_BACKLIGHTS') {
 	   payload.sender = sender.name ;
-	   console.log("AND THIS IS RECEIVED:", this.name, payload);	 
+//	   console.log("AND THIS IS RECEIVED:", this.name, payload);	 
 	   this.sendSocketNotification('SET_LIGHTS',payload) ;
 	   };
    },

@@ -172,6 +172,7 @@ module.exports = NodeHelper.create({
   socketNotificationReceived: function(notification, payload) {
 	if (notification === 'SET_LIGHTS') {
 	  try{
+		if (!this.config.colorCommands[payload.sender]){ return;}; //ignore non-configured modules. 
 		if (payload.command == -1) {
 			if (! MMM_LCD_activeOverlayMAP.has(payload.sender)) { return ;} ;
 			var overlayList = MMM_LCD_activeOverlayMAP.get(payload.sender) ;
@@ -223,7 +224,7 @@ module.exports = NodeHelper.create({
 			if (changed_strands[i]) { this.show(i,this.config.transitionTime); };
 		};
 	  } catch (error) {
-		  console.log("MMM-LCD-Backlight error in setting lights for", payload.sender) ;
+		  console.log("MMM-LCD-Backlight error in setting lights for ", payload.sender) ;
 	  }
 	} else if (notification === 'CONFIG') {
 		this.config = payload ;
