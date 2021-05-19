@@ -5,7 +5,7 @@
   "license": "MIT",
   "repository": "https://github.com/martinkooij/MMM-LCD-Backlight",
   "dependencies": {
-    "serialport": "latest"
+    "serialport": "latest",
     "node-fetch": "latest"
   },
   "main": "MMM-LCD-Backlight.js"
