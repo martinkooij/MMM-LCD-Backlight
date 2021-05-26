@@ -19,6 +19,7 @@ var writebuffer = [] ;
 var ready_to_receive = false ;
 var overlayId = 0 ;
 const MMM_LCD_activeOverlayMAP = new Map() ;
+const MMM_LCD_activePayloadMAP = new Map() ;
 
 module.exports = NodeHelper.create({
 	
@@ -173,6 +174,8 @@ module.exports = NodeHelper.create({
 	if (notification === 'SET_LIGHTS') {
 	  try{
 		if (!this.config.colorCommands[payload.sender]){ return;}; //ignore non-configured modules. 
+		if (MMM_LCD_activePayloadMAP.get(payload.sender) === JSON.stringify(payload)) { return ; } //ignore already processed command 
+		MMM_LCD_activePayloadMAP.set(payload.sender, JSON.stringify(payload) ;
 		if (payload.command == -1) {
 			if (! MMM_LCD_activeOverlayMAP.has(payload.sender)) { return ;} ;
 			var overlayList = MMM_LCD_activeOverlayMAP.get(payload.sender) ;
@@ -205,7 +208,7 @@ module.exports = NodeHelper.create({
 		if (MMM_LCD_activeOverlayMAP.has(payload.sender)) {
 			var overlayList = MMM_LCD_activeOverlayMAP.get(payload.sender);
 			//guard against too many overlays per sender
-			if (overlayList.length >= 5 ) {
+			if (overlayList.length >= 4 ) {   // limit stacking overlays per module to 4
 				for (var o of overlayList) {
 					this.remove_overlay(o.strand,o.id) ;
 					changed_strands[o.strand] = true ;
@@ -214,8 +217,8 @@ module.exports = NodeHelper.create({
 				MMM_LCD_activeOverlayMAP.set(payload.sender, []);
 			};
 			//end guard
-				MMM_LCD_activeOverlayMAP.get(payload.sender).push({strand: strand, id: id});
-				changed_strands[strand] = true;
+			MMM_LCD_activeOverlayMAP.get(payload.sender).push({strand: strand, id: id});
+			changed_strands[strand] = true;
 		} else {
 			MMM_LCD_activeOverlayMAP.set(payload.sender, [ {strand: strand, id: id} ]);
 			changed_strands[strand] = true ;
