@@ -129,7 +129,7 @@ module.exports = NodeHelper.create({
 },
 
   emptyBuffer: function() {
-	 var self = this ;
+	var self = this ;
 //	console.log("DEBUG: empty buffer bufferlength = ", writebuffer.length, ", ready_to_receive =", ready_to_receive);
 	if (writebuffer.length != 0) {
 		if (ready_to_receive != true) {	
@@ -175,7 +175,7 @@ module.exports = NodeHelper.create({
 	  try{
 		if (!this.config.colorCommands[payload.sender]){ return;}; //ignore non-configured modules. 
 		if (MMM_LCD_activePayloadMAP.get(payload.sender) === JSON.stringify(payload)) { return ; } //ignore already processed command 
-		MMM_LCD_activePayloadMAP.set(payload.sender, JSON.stringify(payload) ;
+		MMM_LCD_activePayloadMAP.set(payload.sender, JSON.stringify(payload)) ;
 		if (payload.command == -1) {
 			if (! MMM_LCD_activeOverlayMAP.has(payload.sender)) { return ;} ;
 			var overlayList = MMM_LCD_activeOverlayMAP.get(payload.sender) ;
