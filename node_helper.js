@@ -24,7 +24,7 @@ const MMM_LCD_activePayloadMAP = new Map() ;
 module.exports = NodeHelper.create({
 	
   start: function () {
-    console.log('Bose helper started ...');
+    console.log('MMM_LCD_Backlight helper started ...');
 	port.on('open', function() {
 		console.log("port succesfully opened");
 	});
@@ -115,7 +115,7 @@ module.exports = NodeHelper.create({
 	console.log("PI PICO TO>>>");
 	console.log(counter.toString() + JSON.stringify(showObject));
 	console.log("<<<");
-//	this.my_port_write(JSON.stringify(showObject));
+	this.my_port_write(JSON.stringify(showObject));
 	counter++;
 },
 
@@ -137,7 +137,7 @@ module.exports = NodeHelper.create({
 			return;
 		};
 		var firstline = writebuffer.shift() ;
-		this.writeAndDrain(firstline,self.emptyBuffer);
+		self.writeAndDrain(firstline,self.emptyBuffer);
 	};
 },
 
@@ -197,7 +197,7 @@ module.exports = NodeHelper.create({
 		if (payload.params) {
 			if (!strand) {strand = payload.params.strand;} ;
 			if (!pixels) {pixels = payload.params.pixels;} ;
-			if (!pixelstart) {pixelstart = payload.params.pixelstart?payload.params.pixelstart:0 ;};
+			if (!pixelstart) {pixelstart = payload.params.pixelstart;};
 		};
 		var showpix = [] ;
 		for (var n = 0; n < pixels.length ; n++ ) {
