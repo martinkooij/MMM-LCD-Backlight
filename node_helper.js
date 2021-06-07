@@ -7,10 +7,6 @@
 var NodeHelper = require('node_helper');
 const SerialPort = require('serialport') ;
 const Readline = require('@serialport/parser-readline');
-const port = new SerialPort('COM4', {
-  baudRate: 115200
-});
-const parser = port.pipe(new Readline({ delimiter: '\r\n' }));
 
 var counter = 0;
 var strands = [] ;
@@ -25,15 +21,7 @@ module.exports = NodeHelper.create({
 	
   start: function () {
     console.log('MMM_LCD_Backlight helper started ...');
-	port.on('open', function() {
-		console.log("port succesfully opened");
-	});
-	parser.on('data', function(data) {
-		console.log("RECEIVED '"+ data + "' from PICO");
-		if (data = ">") {
-			ready_to_receive = true ;
-		}
-	});
+
   },
 
   config: {
@@ -130,7 +118,7 @@ module.exports = NodeHelper.create({
 
   emptyBuffer: function() {
 	var self = this ;
-//	console.log("DEBUG: empty buffer bufferlength = ", writebuffer.length, ", ready_to_receive =", ready_to_receive);
+	console.log("DEBUG: empty buffer bufferlength = ", writebuffer.length, ", ready_to_receive =", ready_to_receive);
 	if (writebuffer.length != 0) {
 		if (ready_to_receive != true) {	
 			setTimeout ( self.emptyBuffer , 200);
@@ -231,6 +219,15 @@ module.exports = NodeHelper.create({
 	  }
 	} else if (notification === 'CONFIG') {
 		this.config = payload ;
+		this.port = new SerialPort(this.config.serialPortname, {baudRate: 115200});
+		this.parser = this.port.pipe(new Readline({ delimiter: '\r\n' }));
+		this.port.on('open', function() {console.log("port succesfully opened");});
+	    this.parser.on('data', function(data) {
+			console.log("RECEIVED '"+ data + "' from PICO");
+			if (data = ">") {
+				ready_to_receive = true ;
+			}
+		});
 		this.create_strands(this.config.nStrings,this.config.nPixels);
 		for (var s = 0 ; s < this.config.nStrings ; s++) {
 			this.set_permanent(s+1,this.config.defaultColor); 
