@@ -113,32 +113,41 @@ module.exports = NodeHelper.create({
 		return;
 	};
 	writebuffer[writebuffer.length] = str + "\r\n";
-	this.emptyBuffer();
 },
+
 
   emptyBuffer: function() {
 	var self = this ;
-	console.log("DEBUG: empty buffer bufferlength = ", writebuffer.length, ", ready_to_receive =", ready_to_receive);
-	if (writebuffer.length != 0) {
-		if (ready_to_receive != true) {	
-			setTimeout ( self.emptyBuffer , 200);
-			return;
-		};
+//	console.log("^^^", writebuffer.length);
+	if (writebuffer.length != 0 && ready_to_receive) {
+//	    console.log("DEBUG: empty buffer bufferlength = ", writebuffer.length, ", ready_to_receive =", ready_to_receive);
 		var firstline = writebuffer.shift() ;
-		self.writeAndDrain(firstline,self.emptyBuffer);
+//		console.log("DEBUG2, ready to write ", firstline) ;
+		this.writeAndDrain(firstline,() => {self.emptyBuffer()});
 	};
 },
 
   writeAndDrain:  function(data, callback) {
 	//mark that pi pico is not ready to receive more
 	ready_to_receive = false ;
-	port.write(data, function (error) { 
-		if(error){console.log(error);}
-		else{
-			port.drain(callback);      
-		}
-	});
-},
+	this.port.write(data);
+	this.port.drain(callback);
+  },
+
+ /*  writeAndDrain: function (data) {
+	var self = this ;
+	ready_to_receive = false ;
+	(async function() {
+		await self.port.write(data, (error) => {
+			if (error) {
+				console.log('Error [writeAndDrain]: ' + error);
+			} else {
+				;
+			}
+			});
+	})();
+   },
+*/
  
    find_display: function(sender, command) {
 		if (this.config.colorCommands[sender]) {
@@ -159,6 +168,7 @@ module.exports = NodeHelper.create({
    },
    
   socketNotificationReceived: function(notification, payload) {
+	var self = this ;
 	if (notification === 'SET_LIGHTS') {
 	  try{
 		if (!this.config.colorCommands[payload.sender]){ return;}; //ignore non-configured modules. 
@@ -215,7 +225,7 @@ module.exports = NodeHelper.create({
 			if (changed_strands[i]) { this.show(i,this.config.transitionTime); };
 		};
 	  } catch (error) {
-		  console.log("MMM-LCD-Backlight error in setting lights for ", payload.sender) ;
+		  console.log("MMM-LCD-Backlight error in setting lights for ", payload.sender, error) ;
 	  }
 	} else if (notification === 'CONFIG') {
 		this.config = payload ;
@@ -233,6 +243,7 @@ module.exports = NodeHelper.create({
 			this.set_permanent(s+1,this.config.defaultColor); 
 			this.show(s+1,0) ;
 		}
+		setInterval(()=> { self.emptyBuffer() }, 500) ;
 	} 
   }
   
