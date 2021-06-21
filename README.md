@@ -10,13 +10,12 @@ The projects add backlights to my Magic Mirror, where the lighting  changes depe
 To do this project some basic proficiency in using Rasberry Pi and Raspberry Pi PICO (C/C++ SDK) and hardware set-ups is assumed. Privided you have adequate background knowlegde, guidance for missing details to build this project can easily be found on the raspberry pi organisation's offical documentation. (Complexity: ~~beginner~~ / advanced / ~~expert~~). 
 
 1. Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/martinkooij/MMM-LCD-Backlight.git`.
-2. go to the MMM-LCD-Backlight folder and execute `npm install`
-3. Add backlighting info (positions, pixels, strands, defaultcolor, etc..) in config.js of MagicMirror. 
-4. Install or change the relevant modules to send out backlighting commands depending on their state. I modified MMM-rainfc to send out "RAIN" when rain is expected, and MMM-Bose-soundtouch to send out "ART" when art is displayed, MMM-traffic module to send out "BUSY" or "JAMMED" depending on traffic condition, and working on the calender module to send out "24H" or "2H" if something is scheduled. The modules should send out the command "-1" if background colors should be displayed again. The MMM-LCD-Backlight is listening to these commands via the module communication to react on commands received according to the config.js file.
+2. Add backlighting info (positions, pixels, strands, defaultcolor, etc..) in config.js of MagicMirror. 
+3. Install or change the relevant modules to send out backlighting commands depending on their state. I modified MMM-rainfc to send out "RAIN" when rain is expected, and MMM-Bose-soundtouch to send out "ART" when art is displayed, MMM-traffic module to send out "BUSY" or "JAMMED" depending on traffic condition, and working on the calender module to send out "24H" or "2H" if something is scheduled. The modules should send out the command "-1" if background colors should be displayed again. The MMM-LCD-Backlight is listening to these commands via the module communication to react on commands received according to the config.js file.
 
-5. Compile the C and C++ code for Pi PICO SDK (tested on SDK 1.2.0. Compile by creating a directory "build", do `cd build`and run Cmake and Make as per your toolchain on linux or windows depending. Install the created backlight.uf2 file on Pico
-6. Wire the PICO on pin 0 and 1 (UART) to the rasberri pi GPIO 14 and GPIO 15. I connected the built-in PL011 serial on these Pins and removed bluetooth and serial console interactions, disabled the mini-uart , so I am not dependent on the variable Pi3B+ core clock for serial speed.
-7. Wire two LED WS2812 strips of 50cm (30 leds) with separate 5V (4Amp, 18W) feed  on pins 5 and 6 respectively on Pico. Connect ground. Feed Pico via any 5V lead and zener diode on VSYS pin. For other sizes and/or pins you can change #DEFINE parameters in the code. 
+4. Compile the C and C++ code for Pi PICO SDK (tested on SDK 1.2.0. Compile by creating a directory "build", do `cd build`and run Cmake and Make as per your toolchain on linux or windows depending. Install the created backlight.uf2 file on Pico
+5. Wire the PICO on pin 0 and 1 (UART) to the rasberri pi GPIO 14 and GPIO 15. I connected the built-in PL011 serial on these Pins and removed bluetooth and serial console interactions, disabled the mini-uart , so I am not dependent on the variable Pi3B+ core clock for serial speed.
+6. Wire two LED WS2812 strips of 50cm (30 leds) with separate 5V (4Amp, 18W) feed  on pins 5 and 6 respectively on Pico. Connect ground. Feed Pico via any 5V lead and zener diode on VSYS pin. For other sizes and/or pins you can change #DEFINE parameters in the code. 
 
 ## Config
 
