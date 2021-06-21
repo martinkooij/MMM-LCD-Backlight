@@ -65,11 +65,9 @@ The modules treates multiple incoming commands as idempotent, so modules can sen
 ### Software architecture
 ![](pictures/S2.png)
 
-## Project Pictures
+## The result in Pictures
 
-![](pictures/P1.png)
-![](pictures/P2.png)
-![](pictures/P3.png)
+![](pictures/P1.png) ![](pictures/P2.png) ![](pictures/P3.png)
 
 
 ## Acknowledgements
