@@ -33,7 +33,9 @@ example of a config file:
 				"MMM-Bose-Soundtouch": [
 				{ command: "ART",
 				  strand: 1,
-				  pixelstart: 2
+				  pixelstart: 2  // pixels colors are sent as command parameters 
+								// by Bose module, depending on current artwork shown
+								// any definition here would override. 
 				}],
 				"MMM-rainfc": [
 				{ command: "RAIN",
