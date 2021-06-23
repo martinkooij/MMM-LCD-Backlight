@@ -181,7 +181,7 @@ module.exports = NodeHelper.create({
 					};
 				mpw(JSON.stringify(luxcommand));
 			} else {
-//				mpw("{command: 1, levels: [0,0,0]}");
+				mpw('{"command":1,"levels":[0,0,0]}');
 			};
 		});
 	},
@@ -265,7 +265,7 @@ module.exports = NodeHelper.create({
 		}
 		setInterval(()=> { self.emptyBuffer() }, 500) ;
 		self.set_ambient_level() ;
-		setInterval(()=> { self.set_ambient_level() }, (10 * 60 * 1000) + 13 ) ;
+		setInterval(()=> { self.set_ambient_level() }, (1 * 60 * 1000) + 13 ) ;
 	} 
   }
   
