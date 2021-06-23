@@ -181,7 +181,7 @@ module.exports = NodeHelper.create({
 					};
 				mpw(JSON.stringify(luxcommand));
 			} else {
-				mpw("{command: 1, levels: [0,0,0]}");
+//				mpw("{command: 1, levels: [0,0,0]}");
 			};
 		});
 	},
