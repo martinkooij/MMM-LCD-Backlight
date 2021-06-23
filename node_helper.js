@@ -171,7 +171,7 @@ module.exports = NodeHelper.create({
    
 	set_ambient_level: function() {
 		exec("vcgencmd display_power", function(error, stdout, stderr){
-			console.log("Err = ", err , "; stdout = ", stdout) ;
+			console.log("Err = ", error , "; stdout = ", stdout) ;
 			if (error || stdout.includes("1")) {
 				var luxcommand = 
 					{ command: 1,
@@ -262,7 +262,7 @@ module.exports = NodeHelper.create({
 			this.show(s+1,0) ;
 		}
 		setInterval(()=> { self.emptyBuffer() }, 500) ;
-		setInterval(()=> { self.set_ambient_level() }, (10 * 60 * 1000) + 13 ) ;
+		setInterval(()=> { self.set_ambient_level() }, (1 * 60 * 1000) + 13 ) ;
 	} 
   }
   
