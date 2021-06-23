@@ -28,23 +28,32 @@ example of a config file:
 			nStrings: 2,  		// There are two strings
 			nPixels: [30,30],		// Each string has 30 leds
 			defaultColor: {r: 255, g: 167, b: 87 },   // default = warm white 2700K
-			serialPortname: "/dev/serial0",  //that how I configured and named the serial port on my RASP PI3B+ towards the PICO
+			serialPortname: "/dev/serial0",
 			colorCommands: {
-				"MMM-Bose-Soundtouch": [ // list of commands that can be received from MMM-Bose-Soundtouch
-					{ command: "ART",
-					  strand: 2,
-					  pixelstart: 3 // using pixel 3,4,5,6 and 7 of LEDstring 2. 
-					  //5 pixels are sent by the modules as parameters, depending on dominant colors of the art
-					  // no need to specify them here. 
-					}],
-				"MMM-rainfc": [ // list of commands that can be received from MMM-rainfc
-					{ command: "RAIN",
-					  strand: 1,
-					  pixelstart: 25,
-					  pixels: [{r:0,g:0,b:255},{r:0,g:0,b:255},{r:0,g:0,b:255}]  // three blue pixels when rain is expected
-					}]
+				"MMM-Bose-Soundtouch": [
+				{ command: "ART",
+				  strand: 1,
+				  pixelstart: 2
+				}],
+				"MMM-rainfc": [
+				{ command: "RAIN",
+				  strand: 2,
+				  pixelstart: 25,
+				  pixels: [{r:0,g:0,b:255},{r:0,g:0,b:255},{r:0,g:0,b:255}]
+				}],
+				"MMM-calendar": [
+				{ command: "NEARING",
+				  strand: 2,
+				  pixelstart: 2,
+				  pixels: [{r:212,g:235,b:255},{r:212,g:235,b:255},{r:212,g:235,b:255},{r:212,g:235,b:255}]
+				},
+				{ command: "ALMOST",
+				  strand: 2,
+				  pixelstart: 2,
+				  pixels: [{r:255,g:128,b:0},{r:248,g:58,b:34},  {r:248,g:58,b:34},  {r:255,g:128,b:0}]
+				}]							  
 			},	
-			transitionTime: 2000 // time to transition between the colors. 
+			transitionTime: 2000 
 		}
 },
 ````
