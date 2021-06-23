@@ -170,16 +170,17 @@ module.exports = NodeHelper.create({
    
    
 	set_ambient_level: function() {
+		var self = this ;
 		exec("vcgencmd display_power", function(error, stdout, stderr){
 			console.log("Err = ", error , "; stdout = ", stdout) ;
 			if (error || stdout.includes("1")) {
 				var luxcommand = 
 					{ command: 1,
-					  levels: this.config.luxLevels
+					  levels: self.config.luxLevels
 					};
-				this.my_port_write(JSON.stringify(luxcommand));
+				self.my_port_write(JSON.stringify(luxcommand));
 			} else {
-				this.my_port_write("{command: 1, levels: [0,0,0]}");
+				self.my_port_write("{command: 1, levels: [0,0,0]}");
 			};
 		});
 	},
