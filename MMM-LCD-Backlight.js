@@ -12,7 +12,7 @@
 		nPixels: [30,30],		// Each string has 30 leds
         defaultColor: {r: 255, g: 167, b: 87 },   // default = warm white 2700K
         colorCommands: [], // empty list of colorcommands
-		luxLevels:[70,450,700],  // 25% upto 70 lux, to 50% at 70, to 75% at 450, to 100% at 700 or higher
+		luxLevels:[28,450,1900],  // 25% upto 28 lux, to 50% at 28, to 75% at 450, to 100% at 1900 or higher
 		transitionTime: 5000 
 	},
 	
