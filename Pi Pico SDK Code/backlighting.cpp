@@ -138,10 +138,11 @@ void set_new_brightness(uint alarm) {
 	} else if (lux <= lux_levels[1]) {
 		set_brightness = 100 ;
 	} else if (lux <= lux_levels[2]) {
-		set_brightness = 154 ;
+		set_brightness = 136 ;
 	} else {
 		set_brightness = 192 ;
 	};
+	printf("Voltage: %f V, lux = %d, set_brightness = %d\n",result * conversion_factor, (int)lux, set_brightness);
 	hardware_alarm_set_target (0,delayed_by_ms(get_absolute_time(),LDR_CHECK_TIME));
 } ;
 			
