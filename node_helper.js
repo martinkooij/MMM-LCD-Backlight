@@ -253,7 +253,7 @@ module.exports = NodeHelper.create({
 		this.parser = this.port.pipe(new Readline({ delimiter: '\r\n' }));
 		this.port.on('open', function() {console.log("port succesfully opened");});
 	    this.parser.on('data', function(data) {
-			if (data != ">") {console.log("RECEIVED '"+ data + "' from PICO");}
+//			if (data != ">") {console.log("RECEIVED '"+ data + "' from PICO");}
 			if (data = ">") {
 				ready_to_receive = true ;
 			}
