@@ -5,7 +5,7 @@
  */
  
 var NodeHelper = require('node_helper');
-const SerialPort = require('serialport') ;
+const SerialPort = require('serialport').SerialPort ;
 const Readline = require('@serialport/parser-readline');
 const exec = require('child_process').exec;
 
