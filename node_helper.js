@@ -249,7 +249,7 @@ module.exports = NodeHelper.create({
 	  }
 	} else if (notification === 'CONFIG') {
 		this.config = payload ;
-		this.port = new SerialPort(this.config.serialPortname, {baudRate: 115200});
+		this.port = new SerialPort({path: this.config.serialPortname, baudRate: 115200});
 		this.parser = this.port.pipe(new Readline({ delimiter: '\r\n' }));
 		this.port.on('open', function() {console.log("port succesfully opened");});
 	    this.parser.on('data', function(data) {
