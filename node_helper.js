@@ -6,7 +6,7 @@
  
 var NodeHelper = require('node_helper');
 const SerialPort = require('serialport').SerialPort ;
-const Readline = require('@serialport/parser-readline');
+const { ReadlineParser } = require('@serialport/parser-readline') ;
 const exec = require('child_process').exec;
 
 var counter = 0;
@@ -101,9 +101,9 @@ module.exports = NodeHelper.create({
 		pixels : compactPixelList ,
 		timer : timer
 		};
-	console.log("PI PICO TO>>>");
-	console.log(counter.toString() + JSON.stringify(showObject));
-	console.log("<<<");
+//	console.log("PI PICO TO>>>");
+//	console.log(counter.toString() + JSON.stringify(showObject));
+//	console.log("<<<");
 	this.my_port_write(JSON.stringify(showObject));
 	counter++;
 },
@@ -250,8 +250,8 @@ module.exports = NodeHelper.create({
 	} else if (notification === 'CONFIG') {
 		this.config = payload ;
 		this.port = new SerialPort({path: this.config.serialPortname, baudRate: 115200});
-		this.parser = this.port.pipe(new Readline({ delimiter: '\r\n' }));
-		this.port.on('open', function() {console.log("port succesfully opened");});
+		this.parser = this.port.pipe(new ReadlineParser({ delimiter: '\r\n' }));
+		this.port.on('open', function() {console.log("serial port succesfully opened");});
 	    this.parser.on('data', function(data) {
 //			if (data != ">") {console.log("RECEIVED '"+ data + "' from PICO");}
 			if (data = ">") {
