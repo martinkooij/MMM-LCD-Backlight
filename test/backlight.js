@@ -87,8 +87,6 @@ function show (strand_no, timer) {
 	my_port_write(JSON.stringify(showObject));
 	counter++;
 };
-		
-port.pipe(parser) ;
 	
 port.on('open', function() {
   console.log("port succesfully opened");
