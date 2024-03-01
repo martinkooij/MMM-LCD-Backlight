@@ -173,7 +173,7 @@ module.exports = NodeHelper.create({
 		var self = this ;
 		var mpw = this.my_port_write ;
 		exec("vcgencmd display_power", function(error, stdout, stderr){
-			console.log("Err = ", error , "; stdout = ", stdout) ;
+//			console.log("MMM-LCD-Backlight: ambient level set Err = ", error , "; stdout = ", stdout) ;
 			if (error || stdout.includes("1")) {
 				var luxcommand = 
 					{ command: 1,
